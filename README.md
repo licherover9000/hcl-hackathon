@@ -125,8 +125,8 @@ Describe your innovative solution. Highlight what makes your approach unique, sc
 
 ### 1. Clone the repository
 ```bash
-git clone https://github.com/<your-username>/<your-repo-name>.git
-cd <your-repo-name>
+git clone https://github.com/licherover9000/hcl-hackathon.git
+cd hcl-hackathon
 ```
 
 ### 2. Backend Setup
