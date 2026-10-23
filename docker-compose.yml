@@ -1,0 +1,46 @@
+# RecoverPlus local stack: PostgreSQL, the ML scoring service, the Spring Boot API and the React UI.
+# Start everything:   docker compose up --build
+# Database only:      docker compose up -d db      (then run backend and frontend from your IDE)
+services:
+  db:
+    image: postgres:16
+    environment:
+      POSTGRES_DB: recoverplus
+      POSTGRES_USER: recoverplus
+      POSTGRES_PASSWORD: recoverplus
+    ports: ["5432:5432"]
+    volumes: [pgdata:/var/lib/postgresql/data]
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U recoverplus"]
+      interval: 5s
+      retries: 10
+
+  ml:
+    build: ./ml
+    environment:
+      FEATURES_FILE: /data/input/case_03_features_current_V1.0.csv
+    volumes: ["./data:/data:ro", "./ml/artifacts:/app/artifacts:ro"]
+    ports: ["8001:8001"]
+
+  backend:
+    build: ./backend
+    depends_on:
+      db: {condition: service_healthy}
+    environment:
+      DB_URL: jdbc:postgresql://db:5432/recoverplus
+      DB_USER: recoverplus
+      DB_PASSWORD: recoverplus
+      DATA_DIR: /data/input
+      OUTPUT_DIR: /output
+      ML_URL: http://ml:8001
+      CORS_ORIGINS: http://localhost:5173
+    volumes: ["./data:/data:ro", "./output:/output"]
+    ports: ["8080:8080"]
+
+  frontend:
+    build: ./frontend
+    depends_on: [backend]
+    ports: ["5173:80"]
+
+volumes:
+  pgdata:

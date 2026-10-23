@@ -1,0 +1,36 @@
+server:
+  port: ${PORT:8080}
+
+spring:
+  application:
+    name: recoverplus
+  datasource:
+    url: ${DB_URL:jdbc:postgresql://localhost:5432/recoverplus}
+    username: ${DB_USER:recoverplus}
+    password: ${DB_PASSWORD:recoverplus}
+  flyway:
+    enabled: true
+  servlet:
+    multipart:
+      max-file-size: 50MB
+      max-request-size: 50MB
+  jackson:
+    serialization:
+      write-dates-as-timestamps: false
+
+app:
+  data-dir: ${DATA_DIR:../data/input}
+  output-dir: ${OUTPUT_DIR:../output}
+  auth:
+    # Change in any shared environment. Used to sign login tokens (HMAC-SHA256).
+    secret: ${AUTH_SECRET:change-me-recoverplus-dev-secret}
+    token-hours: 12
+    demo-password: ${DEMO_PASSWORD:demo123}
+  ml:
+    url: ${ML_URL:http://localhost:8001}
+    timeout-ms: 2000
+  cors-origins: ${CORS_ORIGINS:http://localhost:5173}
+
+springdoc:
+  swagger-ui:
+    path: /swagger-ui.html
