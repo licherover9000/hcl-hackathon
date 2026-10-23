@@ -65,3 +65,5 @@ ml/.venv/
 __pycache__/
 *.pyc
 .claude/settings.local.json
+
+data/input/
