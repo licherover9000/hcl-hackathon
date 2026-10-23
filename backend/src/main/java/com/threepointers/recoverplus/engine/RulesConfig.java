@@ -52,9 +52,9 @@ public record RulesConfig(
         return new RulesConfig(
                 l.dec("toleranceAmount", "100", "tolerance", "unpaid_tolerance", "tolerance_amount", "tolerance_inr", "unpaid_tolerance_inr"),
                 l.dec("penalRatePct", "24", "penal_rate", "penal_rate_pct", "penal_rate_pa", "penal_charge_rate", "penal_rate_percent", "penal_interest_rate"),
-                l.integer("sma0MaxDpd", "30", "sma_0_max", "sma0_max", "sma_0_max_dpd", "sma0_max_dpd", "sma_0.max"),
-                l.integer("sma1MaxDpd", "60", "sma_1_max", "sma1_max", "sma_1_max_dpd", "sma1_max_dpd", "sma_1.max"),
-                l.integer("sma2MaxDpd", "90", "sma_2_max", "sma2_max", "sma_2_max_dpd", "sma2_max_dpd", "sma_2.max", "npa_min_dpd_exclusive"),
+                l.integer("sma0MaxDpd", "30", "buckets.SMA_0[1]", "sma_0_max", "sma0_max", "sma_0_max_dpd", "sma0_max_dpd", "sma_0.max"),
+                l.integer("sma1MaxDpd", "60", "buckets.SMA_1[1]", "sma_1_max", "sma1_max", "sma_1_max_dpd", "sma1_max_dpd", "sma_1.max"),
+                l.integer("sma2MaxDpd", "90", "buckets.SMA_2[1]", "sma_2_max", "sma2_max", "sma_2_max_dpd", "sma2_max_dpd", "sma_2.max", "npa_min_dpd_exclusive"),
                 l.integer("digitalMaxDpd", "7", "digital_max_dpd", "digital_reminder_max_dpd"),
                 l.integer("brokenPtpWindowDays", "60", "broken_ptp_window_days", "broken_ptp_window", "ptp_window_days"),
                 l.integer("ptpGraceDays", "2", "ptp_grace_days", "broken_ptp_grace_days", "grace_days", "ptp_grace"),

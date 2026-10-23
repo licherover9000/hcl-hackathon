@@ -1,6 +1,6 @@
 # Step 04 (P4): Spring Boot API, security, contacts, settlements, day-end service
 
-**Owner:** Backend · **Status:** written and reviewed; **not yet compiled** (Maven Central was blocked in the build environment). First action: `cd backend && mvn -q compile` and fix anything it reports.
+**Owner:** Backend · **Status:** compiles with zero errors against exact stand-ins of the Spring, Jackson and servlet APIs it uses (Maven Central was blocked in the build environment); every main SQL statement run on PostgreSQL 16 with the real schema. Not yet run end to end with Spring: do that on a laptop (`mvn spring-boot:run`).
 
 ## Summary
 REST API over PostgreSQL that uses the same engine as the offline run. Adds login with four roles, server-side role and object checks, contact logging with fair-practice rules (422), settlement maker-checker (403 self-approval, 409 race), the day-end service that stores snapshots and writes the outputs, config editing, dashboard and audit endpoints, and a command-line batch mode.

@@ -29,14 +29,14 @@ React (Vite)  --REST + bearer token-->  Spring Boot 3 / Java 21  --JDBC-->  Post
 |---|---|---|---|
 | S1 | Day-end computes position (DPD, bucket, overdue, penal, total dues) exactly as the case | Must | ✅ (worked examples 1 to 14 pass) |
 | S2 | Rules R1 to R12 set strategy, queue and codes; config-driven | Must | ✅ |
-| S3 | Output CSVs for an as-of date, compared against the expected file | Must | ✅ (sample pack 10/10); real file: run the script |
+| S3 | Output CSVs for an as-of date, compared against the expected file | Must | ✅ 2,310 / 2,310 rows and 12 / 12 settlements match the expected files |
 | S4 | Ranked worklists per queue, assigned within capacity | Must | ✅ |
-| S5 | Login with 4 roles, server-side role and object checks (403) | Must | 🚧 written, compile on a laptop with Maven |
+| S5 | Login with 4 roles, server-side role and object checks (403) | Must | 🚧 compiles (checked against API stand-ins), SQL tested on PostgreSQL; run end to end on a laptop |
 | S6 | Contact logging with fair-practice checks (422) | Must | 🚧 |
 | S7 | Settlement propose / approve / reject, 403 self-approval, 409 race, PAID / LAPSED | Must | 🚧 |
-| S8 | Append-only audit trail with CSV export | Must | 🚧 (DB trigger tested ✅) |
+| S8 | Append-only audit trail with CSV export | Must | 🚧 DB trigger tested ✅; API compiles |
 | S9 | Dashboard: buckets, roll-rate matrix, PTP kept rate, blocked contacts, settlements | Should | 🚧 |
-| S10 | AI: miss-next-instalment model, report, model card, risk_scores.csv, R13, AI worklist | Should (AI track) | ✅ pipeline; rerun on real data |
+| S10 | AI: miss-next-instalment model, report, model card, risk_scores.csv, R13, AI worklist | Should (AI track) | ✅ ROC-AUC 0.8836 vs baseline 0.7955 on real data |
 
 Legend: ✅ working and tested · 🚧 in progress · ⬜ not started
 
@@ -55,7 +55,7 @@ Outputs: `output/collections_output.csv`, `output/settlement_decisions.csv` (and
 3. Backend: `cd backend && mvn spring-boot:run` (Swagger at http://localhost:8080/swagger-ui.html).
    Or a one-shot batch: `mvn -q package -DskipTests && java -jar target/recoverplus-1.0.0.jar --job=evaluate --as-of=2026-03-31`
 4. Frontend: `cd frontend && npm install && npm run dev`, open http://localhost:5173.
-5. Log in as a manager or head (user IDs from the users file, password `demo123`), open **Day-end and data**: Load seed data, then Run day-end.
+5. Log in (password `demo123`): collector U201 (field, Mumbai) or U401 (recovery), manager U501, head U601, auditor U701, open **Day-end and data**: Load seed data, then Run day-end.
 
 ## API (main endpoints)
 `POST /api/auth/login` · `GET /api/worklist?mode=rules|ai` · `GET /api/loans/{id}` · `POST /api/loans/{id}/contacts` ·
